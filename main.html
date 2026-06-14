@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Team Picker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="site-header">
+        <h1>⚽ Team Picker</h1>
+        <p>Split players into two random teams for a World Cup match.</p>
+      </header>
+
+      <!-- Step 1: Pick match -->
+      <div class="step active" id="step1">
+        <p class="label">Pick a match</p>
+        <input
+          type="text"
+          id="matchSearch"
+          placeholder="Search teams…"
+          oninput="filterMatches()"
+          autocomplete="off"
+        />
+        <div class="match-grid" id="matchGrid"></div>
+        <div class="btn-group">
+          <button class="btn" id="toStep2Btn" onclick="goStep2()" disabled>
+            Next →
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Add players -->
+      <div class="step" id="step2">
+        <button class="back" onclick="showStep(1)">← Back</button>
+        <div class="match-pill" id="step2Pill"></div>
+        <p class="label">Add players</p>
+        <div class="player-row">
+          <input
+            type="text"
+            id="playerInput"
+            placeholder="Player name…"
+            onkeydown="if (event.key === 'Enter') addPlayer();"
+            autocomplete="off"
+          />
+          <button onclick="addPlayer()">Add</button>
+          <button onclick="resetAll()">Reset Data</button>
+        </div>
+        <div class="player-list" id="playerList"></div>
+        <p class="count-note" id="countNote">0 players</p>
+        <hr class="divider" />
+        <div class="btn-group">
+          <button class="btn" onclick="generateTeams()">Generate teams</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Results -->
+      <div class="step" id="step3">
+        <button class="back" onclick="showStep(2)">← Back</button>
+        <div class="match-pill" id="step3Pill"></div>
+        <div class="results-grid" id="resultsGrid"></div>
+        <div class="btn-group">
+          <button class="btn" onclick="generateTeams()">Shuffle again</button>
+          <button class="btn btn-outline" onclick="showStep(2)">
+            Edit players
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
