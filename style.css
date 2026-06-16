@@ -366,3 +366,12 @@ input[type="text"]:focus {
   color: var(--muted);
   padding: 0.75rem 0;
 }
+
+.sticky-footer {
+  position: sticky;
+  bottom: 0;
+  background: var(--bg);
+  padding: 1rem 0;
+  margin: -1rem 0 0;
+  border-top: 1px solid var(--border);
+}
