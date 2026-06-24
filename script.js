@@ -186,6 +186,15 @@ function addPlayer() {
   //   renderPlayers();
 }
 
+function shufflePlayers() {
+  if (!players.length) {
+    alert("Add at least one player first.");
+    return;
+  }
+  players = shuffle(players);
+  renderPlayers();
+}
+
 function removePlayer(i) {
   players.splice(i, 1);
   renderPlayers();
@@ -246,7 +255,7 @@ function generateTeams() {
 }
 
 function resetAll() {
-//   selected = null;
+  //   selected = null;
   players = [];
   visible = [...MATCHES];
   //   document.getElementById("matchSearch").value = "";
