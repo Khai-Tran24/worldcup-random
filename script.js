@@ -1,18 +1,22 @@
-// const MATCHES = [
-//   { a: "Argentina 🇦🇷", b: "France 🇫🇷", g: "Final" },
-//   { a: "Brazil 🇧🇷", b: "Germany 🇩🇪", g: "Group A" },
-//   { a: "England 🏴󠁧󠁢󠁥󠁮󠁧󠁿", b: "Portugal 🇵🇹", g: "Group B" },
-//   { a: "Spain 🇪🇸", b: "Netherlands 🇳🇱", g: "Group C" },
-//   { a: "Italy 🇮🇹", b: "Croatia 🇭🇷", g: "Group D" },
-//   { a: "USA 🇺🇸", b: "Mexico 🇲🇽", g: "Group E" },
-//   { a: "Japan 🇯🇵", b: "South Korea 🇰🇷", g: "Group F" },
-//   { a: "Senegal 🇸🇳", b: "Morocco 🇲🇦", g: "Group G" },
-//   { a: "Uruguay 🇺🇾", b: "Colombia 🇨🇴", g: "Group H" },
-//   { a: "Poland 🇵🇱", b: "Czech Republic 🇨🇿", g: "Group I" },
-//   { a: "Belgium 🇧🇪", b: "Denmark 🇩🇰", g: "Group J" },
-//   { a: "Switzerland 🇨🇭", b: "Austria 🇦🇹", g: "Group K" },
-// ];
 const MATCHES = [
+  // Round of 32
+  { a: "South Africa 🇿🇦", b: "Canada 🇨🇦", g: "Round of 32" },
+  { a: "Brazil 🇧🇷", b: "Japan 🇯🇵", g: "Round of 32" },
+  { a: "Germany 🇩🇪", b: "Paraguay 🇵🇾", g: "Round of 32" },
+  { a: "Netherlands 🇳🇱", b: "Morocco 🇲🇦", g: "Round of 32" },
+  { a: "Ivory Coast 🇨🇮", b: "Norway 🇳🇴", g: "Round of 32" },
+  { a: "France 🇫🇷", b: "Sweden 🇸🇪", g: "Round of 32" },
+  { a: "Mexico 🇲🇽", b: "Ecuador 🇪🇨", g: "Round of 32" },
+  { a: "England 🏴", b: "Congo 🇨🇩", g: "Round of 32" },
+  { a: "Belgium 🇧🇪", b: "Senegal 🇸🇳", g: "Round of 32" },
+  { a: "USA 🇺🇸", b: "Bosnia 🇧🇦", g: "Round of 32" },
+  { a: "Spain 🇪🇸", b: "Austria 🇦🇹", g: "Round of 32" },
+  { a: "Portugal 🇵🇹", b: "Croatia 🇭🇷", g: "Round of 32" },
+  { a: "Switzerland 🇨🇭", b: "Algeria 🇩🇿", g: "Round of 32" },
+  { a: "Australia 🇦🇺", b: "Egypt 🇪🇬", g: "Round of 32" },
+  { a: "Argentina 🇦🇷", b: "Cabo Verde 🇨🇻", g: "Round of 32" },
+  { a: "Colombia 🇨🇴", b: "Ghana 🇬🇭", g: "Round of 32" },
+
   // Group A
   { a: "Mexico 🇲🇽", b: "South Africa 🇿🇦", g: "Group A" },
   { a: "South Korea 🇰🇷", b: "Czechia 🇨🇿", g: "Group A" },
@@ -116,11 +120,24 @@ let visible = [...MATCHES];
 
 function renderMatches() {
   const grid = document.getElementById("matchGrid");
+  const knockoutGrid = document.getElementById("knockoutGrid");
   if (!visible.length) {
     grid.innerHTML = '<p class="empty">No matches found.</p>';
     return;
   }
   grid.innerHTML = visible
+    .filter((m) => m.g.toLowerCase().includes("group"))
+    .map((m) => {
+      const i = MATCHES.indexOf(m);
+      return `<button class="match-card${selected === i ? " selected" : ""}" onclick="selectMatch(${i})">
+      <div class="group-tag">${m.g}</div>
+      <div class="teams">${m.a}<br><span class="vs">vs</span><br>${m.b}</div>
+    </button>`;
+    })
+    .join("");
+
+  roundOf32Grid.innerHTML = visible
+    .filter((m) => m.g.toLowerCase().includes("round of 32"))
     .map((m) => {
       const i = MATCHES.indexOf(m);
       return `<button class="match-card${selected === i ? " selected" : ""}" onclick="selectMatch(${i})">
